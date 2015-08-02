@@ -1,3 +1,3 @@
 # alpine-nginx
 
-* `PROXY_HOST_NAME`
+* `PROXY_TARGET`

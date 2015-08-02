@@ -20,7 +20,5 @@ ENV PROXY_HOST_NAME localhost
 ADD *.conf /etc/nginx/
 ADD my-site.conf /etc/nginx/my-site.conf.default
 
-#RUN nginx -t
-
 ADD entrypoint.sh /opt/
 CMD ["/opt/entrypoint.sh"]
