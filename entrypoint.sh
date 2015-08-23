@@ -1,14 +1,19 @@
 #!/usr/bin/env sh
-set -ex
+set -e
+
+[ ! -z "$DEBUG" ] && set -ex
 
 # TODO: this only works with docker-compose
-export PROXY_TARGET=`echo $BLOG_PORT | sed 's/tcp/http/g'`
+
+export PROXY_TARGET=`echo $BLOG_PORT | sed 's/tcp:\/\///g'`
+
+target_conf=/etc/nginx/conf.d/my-site.conf
 
 if [ ! -f /etc/nginx/conf.d/my-site.conf ]; then
-    cp /etc/nginx/my-site.conf.default /etc/nginx/conf.d/my-site.conf
+    target_conf=/etc/nginx/my-site.conf.default
 fi
 
-cat /etc/nginx/conf.d/my-site.conf | envsubst '$SITE_HOST_NAME $PROXY_TARGET' > /etc/nginx/conf.d/generated.conf
+cat $target_conf | envsubst '$SITE_HOST_NAME $PROXY_TARGET' > /etc/nginx/conf.d/generated.conf
 
 mkdir -p /etc/nginx/ssl/
 
