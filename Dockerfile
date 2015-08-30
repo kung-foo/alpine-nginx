@@ -9,13 +9,12 @@ RUN curl -o /usr/local/bin/gosu -sSL "https://github.com/tianon/gosu/releases/do
 
 RUN apk add nginx gettext
 
-EXPOSE 80
-EXPOSE 443
+EXPOSE 8080 8443
 
 VOLUME ["/var/log/nginx", "/etc/nginx/ssl", "/etc/nginx/conf.d"]
 
 # defaults
-ENV PROXY_HOST_NAME localhost
+ENV SITE_HOST_NAME localhost
 
 ADD *.conf /etc/nginx/
 ADD my-site.conf /etc/nginx/my-site.conf.default
